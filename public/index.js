@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import copy from 'copy-to-clipboard';
+import embedly from 'embedly';
 
 import Editor from '../src/Editor';
 
@@ -19,6 +20,10 @@ import createSideToolbarPlugin, {
   createToggleBlockTypeButton,
 } from '../src/plugins/side-toolbar';
 
+import createEmbedPlugin, {
+  createSideToolbarEmbedButton,
+} from '../src/plugins/embed';
+
 import createBlockBreakoutPlugin from '../src/plugins/breakout';
 
 import BoldIcon from '../src/icons/BoldIcon';
@@ -34,9 +39,26 @@ import OrderedListIcon from '../src/icons/OrderedListIcon'
 import AlignmentLeftIcon from '../src/icons/AlignmentLeftIcon';
 import AlignmentCenterIcon from '../src/icons/AlignmentCenterIcon';
 import AlignmentRightIcon from '../src/icons/AlignmentRightIcon';
+import CodeBlockIcon from '../src/icons/CodeBlockIcon';
 
 // -- Breakout plugin
 const blockBreakoutPlugin = createBlockBreakoutPlugin();
+
+// -- Embed plugin
+var embedlyClient = new embedly({
+  key: '12672a12720e4ae7b136ccdb3a2aa0a1',
+  secure: true,
+});
+
+const embedPlugin = createEmbedPlugin({
+  getData: (url) => {
+    return new Promise((resolve, reject) => {
+      embedlyClient.oembed({ url }, (err, obj) => {
+        obj[0].type === 'error' ? reject(obj[0].error_message) : resolve(obj[0]);
+      });
+    });
+  },
+});
 
 // -- Inline toolbar plugin
 const inlineToolbarPlugin = createInlineToolbarPlugin({
@@ -62,7 +84,7 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 // -- Side toolbar plugin
 const sideToolbarPlugin = createSideToolbarPlugin({
   buttons: [
-    createToggleBlockTypeButton({ blockType: 'header-one', icon: <HeadingOneIcon /> }),
+    embedPlugin.createSideToolbarButton(),
   ],
 });
 
@@ -100,6 +122,7 @@ class App extends Component {
             blockBreakoutPlugin,
             inlineToolbarPlugin,
             sideToolbarPlugin,
+            embedPlugin,
           ]}
           onChange={state => this.handleChange(state)}
         />
