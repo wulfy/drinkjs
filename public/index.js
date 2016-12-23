@@ -60,10 +60,10 @@ const embedPlugin = createEmbedPlugin({
             reject(err);
           }
           else if (body[0].type === 'error') {
-            reject(body[0].error_message)
+            reject(body[0].error_message);
           }
           else {
-            resolve(body[0])
+            resolve(body[0]);
           }
         });
     });

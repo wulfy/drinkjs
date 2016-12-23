@@ -20,6 +20,25 @@
         "type": "video",
         "thumbnail_height": 360
       }
+    },
+    "1": {
+      "type": "embed",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "url": "https://twitter.com/clubicbonsplans/status/803146720485998592",
+        "provider_url": "http://twitter.com",
+        "description": "CyberMonday Le SSD Crucial MX300 de 525Go passe à 93€ https://t.co/uk8NntlBIs + de 140€ ailleurs",
+        "title": "Clubic Bons Plans on Twitter",
+        "author_name": "clubicbonsplans",
+        "thumbnail_width": 938,
+        "html": "<blockquote class=\"twitter-tweet\"><a href=\"https://twitter.com/clubicbonsplans/status/803146720485998592\"></a></blockquote><script async src=\"//platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>",
+        "author_url": "http://twitter.com/clubicbonsplans",
+        "version": "1.0",
+        "provider_name": "Twitter",
+        "thumbnail_url": "https://pbs.twimg.com/media/CyVZrzpXcAEQl4k.jpg:large",
+        "type": "rich",
+        "thumbnail_height": 428
+      }
     }
   },
   "blocks": [
@@ -297,7 +316,22 @@
       "data": {}
     },
     {
-      "key": "29f28",
+      "key": "1k976",
+      "text": "https://twitter.com/clubicbonsplans/status/803146720485998592",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 61,
+          "key": 1
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "dec2p",
       "text": "Aliquam erat volutpat. Nam facilisis lacinia tellus id hendrerit. Morbi a nisi id magna vehicula porttitor vitae at dolor. Aenean non rhoncus ante, sed scelerisque odio. Donec egestas nibh metus, eget accumsan nulla ornare maximus. Nunc vestibulum maximus tincidunt. Fusce dignissim nibh tortor, at fringilla elit auctor vitae. Nulla placerat, ipsum at blandit bibendum, dolor felis feugiat turpis, bibendum laoreet eros neque id felis. Cras orci arcu, dapibus ac malesuada a, elementum non tellus. Phasellus nisl nulla, euismod vitae mauris sed, interdum molestie sapien. Mauris ut diam quis lacus commodo pharetra. Aenean venenatis, libero eget porttitor dignissim, mi felis varius nisi, quis semper quam ante vel urna. In dignissim sapien dolor, ac commodo metus hendrerit ac.",
       "type": "unstyled",
       "depth": 0,

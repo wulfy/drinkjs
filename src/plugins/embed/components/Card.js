@@ -5,33 +5,19 @@ import styles from './Card.css';
 export default
 class Card extends Component {
   render() {
-    const { blockProps: { data } } = this.props;
-
     const {
-      title = 'Untitled',
-      thumbnail_url,
-      description,
-      html,
-      type,
-      url,
-    } = data;
+      blockProps: {
+        title,
+        thumbnail_url,
+        description,
+        url,
+      }
+    } = this.props;
 
     // Probably loading
-    if (!type) {
+    if (!title) {
       return (
-        <div className={styles.card}>
-          {url}
-        </div>
-      );
-    }
-
-    // Handle oembed
-    if (html) {
-      return (
-        <div
-          className={styles.iframe}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <div className={styles.card}>{url}</div>
       );
     }
 

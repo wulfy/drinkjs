@@ -2,6 +2,7 @@ import { Entity } from 'draft-js';
 
 import Card from './components/Card';
 
+import Html from './components/Html';
 import createSideToolbarButton from './utils/createSideToolbarButton';
 
 export default (props) => {
@@ -10,16 +11,26 @@ export default (props) => {
       if (contentBlock.getType() === 'atomic') {
         const entity = Entity.get(contentBlock.getEntityAt(0));
         const type = entity.getType();
+        const data = entity.getData();
 
-        if (type === 'embed') {
+        if (type !== 'embed') {
+          return null;
+        }
+
+
+        if (data.html) {
           return {
-            component: Card,
+            component: Html,
             editable: false,
-            props: {
-              data: entity.getData(),
-            },
+            props: { html: data.html },
           };
         }
+
+        return {
+          component: Card,
+          editable: false,
+          props: { ...data },
+        };
       }
 
       return null;

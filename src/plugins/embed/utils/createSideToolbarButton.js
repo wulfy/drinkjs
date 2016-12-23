@@ -50,7 +50,7 @@ export default ({ getData }) => (
 
       getData(url).then(
         data => {
-          Entity.replaceData(entityKey, data);
+          Entity.replaceData(entityKey, { url, ...data });
 
           const editorState = this.props.getEditorState();
 
