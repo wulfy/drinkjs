@@ -129,10 +129,10 @@ class App extends Component {
         <Editor
           state={state}
           plugins={[
-            blockBreakoutPlugin,
+            embedPlugin,
             inlineToolbarPlugin,
             sideToolbarPlugin,
-            embedPlugin,
+            blockBreakoutPlugin,
           ]}
           onChange={state => this.handleChange(state)}
         />
