@@ -15,7 +15,7 @@ import createInlineToolbarPlugin, {
   createEntityButton,
 } from '../src/plugins/inline-toolbar';
 // import link plugin with the FormLink
-import createLinkPlugin, { linkStrategy, LINK, FormLink } from '../src/plugins/link';
+import createLinkPlugin, { linkStrategy, FormLink, LinkTooltip, LINK, LINK_MUTABILITY } from '../src/plugins/link';
 // import helper for checking if selection contains a link entity
 import selectionContainsEntity from '../src/utils/selectionContainsEntity';
 // import link icon
@@ -24,6 +24,7 @@ import LinkIcon from '../src/icons/LinkIcon';
 // create LINK entity button and define when button is active
 const LinkButton = createEntityButton({
   entityType: LINK,
+  entityMutability: LINK_MUTABILITY,
   isActive: selectionContainsEntity(linkStrategy),
   children: <LinkIcon />,
 });

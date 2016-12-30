@@ -4,7 +4,7 @@ import Link from './components/Link';
 import FormLink from './components/FormLink';
 import { default as DefaultLinkTooltip } from './components/LinkTooltip';
 import linkStrategy from './utils/linkStrategy';
-import { LINK } from './utils/constants';
+import { LINK, LINK_MUTABILITY } from './utils/constants';
 
 const store = createStore({
   getEditorState: null,
@@ -38,6 +38,7 @@ export default createLinkPlugin;
 export {
   linkStrategy,
   FormLink,
+  LinkTooltip,
   LINK,
-  LinkTooltip
+  LINK_MUTABILITY,
 }

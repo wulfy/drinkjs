@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { RichUtils } from 'draft-js';
+import { EditorState, Entity, RichUtils } from 'draft-js';
 
-export default ({ entityType, isActive, children }) => (
+export default ({ entityType, entityMutability, isActive, children, onClick }) => (
   class EntityButton extends Component {
     static propTypes = {
       store: React.PropTypes.object.isRequired,
@@ -27,9 +27,37 @@ export default ({ entityType, isActive, children }) => (
           )
         );
       } else {
-        this.props.store.updateItem('entityType', entityType);
+        if ('function' === typeof onClick) {
+          onClick && onClick().then(data => {
+            this.addEntity(data)
+          }).catch(error => {
+            console.warn('error', error);
+          });
+        } else {
+          this.props.store.updateItem('entityType', entityType);
+        }
       }
     };
+
+    addEntity(data) {
+      const { store } = this.props;
+      const getEditorState = store.getItem('getEditorState');
+      const setEditorState = store.getItem('setEditorState');
+      const editorState = getEditorState();
+      const selectionState = editorState.getSelection();
+
+      const entityKey = Entity.create(entityType, entityMutability, data);
+
+      const newEditorState = RichUtils.toggleLink(
+        editorState,
+        selectionState,
+        entityKey
+      );
+
+      setTimeout(() => {
+        setEditorState(EditorState.forceSelection(newEditorState, selectionState));
+      }, 0);
+    }
 
     preventBubblingUp(event) {
       event.preventDefault();

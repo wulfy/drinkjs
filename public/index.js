@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import { Entity } from 'draft-js';
 import copy from 'copy-to-clipboard';
 
 import Editor from '../src/Editor';
@@ -16,7 +16,8 @@ import createInlineToolbarPlugin, {
   createEntityButton,
 } from '../src/plugins/inline-toolbar';
 import createBlockBreakoutPlugin from '../src/plugins/breakout';
-import createLinkPlugin, { linkStrategy, FormLink, LINK, LinkTooltip } from '../src/plugins/link';
+import createLinkPlugin, { linkStrategy, FormLink, LinkTooltip, LINK, LINK_MUTABILITY } from '../src/plugins/link';
+import createLinkObjectPlugin, { linkObjectStrategy, LinkObjectTooltip, LINK_OBJECT, LINK_OBJECT_MUTABILITY } from '../src/plugins/link-object';
 import createTooltipPlugin, { tooltipEnhancer } from '../src/plugins/tooltip';
 import selectionContainsEntity from '../src/utils/selectionContainsEntity';
 
@@ -34,14 +35,9 @@ import AlignmentLeftIcon from '../src/icons/AlignmentLeftIcon';
 import AlignmentCenterIcon from '../src/icons/AlignmentCenterIcon';
 import AlignmentRightIcon from '../src/icons/AlignmentRightIcon';
 import LinkIcon from '../src/icons/LinkIcon';
+import LinkObjectIcon from '../src/icons/LinkObjectIcon';
 
 const blockBreakoutPlugin = createBlockBreakoutPlugin();
-
-const LinkButton = createEntityButton({
-  entityType: LINK,
-  isActive: selectionContainsEntity(linkStrategy),
-  children: <LinkIcon />,
-});
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   buttons: [
@@ -49,7 +45,31 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
     createInlineStyleButton({ style: 'ITALIC', children: <ItalicIcon /> }),
     createInlineStyleButton({ style: 'UNDERLINE', children: <UnderlineIcon /> }),
     createInlineStyleButton({ style: 'STRIKETHROUGH', children: <StrikethroughIcon /> }),
-    LinkButton,
+    createEntityButton({
+      entityType: LINK,
+      entityMutability: LINK_MUTABILITY,
+      isActive: selectionContainsEntity(linkStrategy),
+      children: <LinkIcon />,
+    }),
+    createEntityButton({
+      entityType: LINK_OBJECT,
+      entityMutability: LINK_OBJECT_MUTABILITY,
+      isActive: selectionContainsEntity(linkObjectStrategy),
+      children: <LinkObjectIcon />,
+      onClick: () => {
+        // emulate modal result
+        return new Promise(resolve => {
+          const section = {
+            id: 146,
+            type: 'section',
+            title: 'Chemises et tuniques',
+            url: '/chemises-et-tuniques-femme/',
+          };
+
+          resolve(section);
+        });
+      }
+    }),
     Separator,
     createBlockStyleButton({ blockType: 'header-one', children: <HeadingOneIcon /> }),
     createBlockStyleButton({ blockType: 'header-two', children: <HeadingTwoIcon /> }),
@@ -68,10 +88,12 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 });
 
 const linkPlugin = createLinkPlugin({ enhancer: tooltipEnhancer });
+const linkObjectPlugin = createLinkObjectPlugin({ enhancer: tooltipEnhancer });
 
 const tooltipPlugin = createTooltipPlugin({
   renderers: {
     [LINK]: LinkTooltip,
+    [LINK_OBJECT]: LinkObjectTooltip,
   }
 });
 
@@ -79,6 +101,7 @@ const plugins = [
   blockBreakoutPlugin,
   inlineToolbarPlugin,
   linkPlugin,
+  linkObjectPlugin,
   tooltipPlugin,
 ];
 

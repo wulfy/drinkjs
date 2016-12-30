@@ -11,14 +11,17 @@ Here's some code!
 import createTooltipPlugin, { tooltipEnhancer } from '../src/plugins/tooltip';
 // import link plugin with the LinkTooltip
 import createLinkPlugin, { LINK, LinkTooltip } from '../src/plugins/link';
+import createLinkObjectPlugin, { LINK_OBJECT, LinkObjectTooltip } from '../src/plugins/link-object';
 
 // link plugin is compatible and have an enhancer property
 const linkPlugin = createLinkPlugin({ enhancer: tooltipEnhancer });
+const linkObjectPlugin = createLinkObjectPlugin({ enhancer: tooltipEnhancer });
 
-// define the custom renderer for LINK entity type
+// define the custom renderer for LINK & LINK OBJECT entities
 const tooltipPlugin = createTooltipPlugin({
   renderers: {
     [LINK]: LinkTooltip,
+    [LINK_OBJECT]: LinkObjectTooltip,
   }
 });
 ```

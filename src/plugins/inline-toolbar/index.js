@@ -8,7 +8,7 @@ import createBlockAlignmentButton from './utils/createBlockAlignmentButton';
 import createTextAlignmentButton from './utils/createTextAlignmentButton';
 import createEntityButton from './utils/createEntityButton';
 
-import { ALIGNMENT_KEY, ALIGNMENT_LEFT } from './constants';
+import { ALIGNMENT_KEY, ALIGNMENT_LEFT } from './utils/constants';
 
 import styles from './textAlignment.css';
 
